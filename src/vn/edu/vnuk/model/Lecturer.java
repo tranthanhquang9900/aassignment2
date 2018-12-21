@@ -184,27 +184,29 @@ public class Lecturer extends Person implements Observer{
 	@Override
 	public void input() {
 		Scanner sc = new Scanner(System.in);
-		
+//		String a = "aaLoLoLobbbcdsac";
+//		String b = "LoLoLo";
+//		a.toLowerCase().contains(b.toLowerCase());
 		System.out.println("Enter your name: ");
-		String name = sc.nextLine();
+		this.name = sc.nextLine();
 		System.out.println("Enter your birth year: ");
-		int yearOfBirth = Integer.parseInt(sc.nextLine());
+		this.yearOfBirth = Integer.parseInt(sc.nextLine());
 		System.out.println("Enter your hometown: ");
-		String hometown = sc.nextLine();
+		this.hometown = sc.nextLine();
 		System.out.println("Enter your department: ");
-		String department = sc.nextLine();
+		this.department = sc.nextLine();
 		System.out.println("Enter your salary ratio: ");
-		float salaryRatio = Float.parseFloat(sc.nextLine());
+		this.salaryRatio = Float.parseFloat(sc.nextLine());
 		System.out.println("Enter your periods in month: ");
-		int periodsInMonth = sc.nextInt();
+		this.periodsInMonth = Integer.parseInt(sc.nextLine());
 		System.out.println("Enter your number of working years: ");
-		int yearOfWork = sc.nextInt();
+		this.yearOfWork = Integer.parseInt(sc.nextLine());
 		minimumWage = Define.DEFAULT_MINIMUM_WAGE;
 		System.out.println("Choose your qualification: \n" +
 						   "1. Bachelor. \n" +
 						   "2. Master. \n" +
 						   "3. Doctor.");
-		int selection = sc.nextInt();
+		int selection = Integer.parseInt(sc.nextLine());
 		switch (selection) {
 		case Define.TYPE_OF_BACHELOR: {
 			qualification = "Bachelor";

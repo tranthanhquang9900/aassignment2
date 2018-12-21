@@ -186,17 +186,17 @@ public class Staff extends Person implements Observer {
 		System.out.println("Enter your name: ");
 		String name = sc.nextLine();
 		System.out.println("Enter your birth year: ");
-		int yearOfBirth = sc.nextInt();
+		int yearOfBirth = Integer.parseInt(sc.nextLine());
 		System.out.println("Enter your hometown: ");
 		String hometown = sc.nextLine();
 		System.out.println("Enter your department: ");
 		String department = sc.nextLine();
 		System.out.println("Enter your salary ratio: ");
-		float salaryRatio = sc.nextFloat();
+		float salaryRatio = Float.parseFloat(sc.nextLine());
 		System.out.println("Enter your number of working days: ");
-		int workDay = sc.nextInt();
+		int workDay = Integer.parseInt(sc.nextLine());
 		System.out.println("Enter your number of working years: ");
-		int yearOfWork = sc.nextInt();
+		int yearOfWork = Integer.parseInt(sc.nextLine());
 		minimumWage = Define.DEFAULT_MINIMUM_WAGE;
 		System.out.println("Choose your position: \n" +
 				   		   "1. Chief of department. \n" +
