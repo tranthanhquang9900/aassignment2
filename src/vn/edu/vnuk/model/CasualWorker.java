@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class CasualWorker extends Person {
 	private int workDay;
 	private float earningPerDay;
+	private boolean isCreated;
 	
 	public int getWorkDay() {
 		return workDay;
@@ -23,6 +24,7 @@ public class CasualWorker extends Person {
 	}
 
 	private CasualWorker(CasualWorkerBuilder builder) {
+		this.isCreated = false;
 		this.id = builder.id;
 		this.yearOfBirth = builder.yearOfBirth;
 		this.type = builder.type;
@@ -80,17 +82,26 @@ public class CasualWorker extends Person {
 	public void input() {
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("Enter your name: ");
-		String name = sc.nextLine();
-		System.out.println("Enter your birth year: ");
-		int yearOfBirth = sc.nextInt();
-		System.out.println("Enter your hometown: ");
-		String hometown = sc.nextLine();
-		System.out.println("Enter your number of working days: ");
-		int workDay = sc.nextInt();
-		System.out.println("Enter your earning per working day: ");
-		float earningPerDay = sc.nextFloat();
+		System.out.println("Enter your name " + ((isCreated) ? this.name : " ") + " ");
+		this.name = sc.nextLine();
 		
+		System.out.println("Enter your birth year " + ((isCreated) ? this.yearOfBirth : " ") + ": ");
+		this.yearOfBirth = Integer.parseInt(sc.nextLine());
+		
+		System.out.println("Enter your number of working days " + ((isCreated) ? this.workDay : " ") + ": ");
+		this.workDay = Integer.parseInt(sc.nextLine());
+		
+		System.out.println("Enter your earning per working day " + ((isCreated) ? this.earningPerDay : " ") + ": ");
+		this.earningPerDay = Float.parseFloat(sc.nextLine());
+		
+		if (!isCreated) isCreated = true;
+		
+	}
+
+	@Override
+	public float getSalary() {
+		float salary = workDay * earningPerDay;
+		return salary;
 	}
 
 }

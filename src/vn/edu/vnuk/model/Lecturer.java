@@ -4,7 +4,7 @@ import vn.edu.vnuk.controller.Observer;
 import java.util.Scanner;
 import vn.edu.vnuk.define.Define;
 
-public class Lecturer extends Person implements Observer{	
+public class Lecturer extends Person implements Observer {	
 	private String hometown;
 	private String department;
 	private String qualification;
@@ -13,7 +13,7 @@ public class Lecturer extends Person implements Observer{
 	private float salaryRatio;
 	private int yearOfWork;
 	private float minimumWage;
-	
+	private boolean isCreated;
 
 	
 	public String getHometown() {
@@ -81,6 +81,7 @@ public class Lecturer extends Person implements Observer{
 	}
 
 	private Lecturer(LecturerBuilder builder) {
+		this.isCreated = false;
 		this.id = builder.id;
 		this.yearOfBirth = builder.yearOfBirth;
 		this.type = builder.type;
@@ -184,25 +185,31 @@ public class Lecturer extends Person implements Observer{
 	@Override
 	public void input() {
 		Scanner sc = new Scanner(System.in);
-//		String a = "aaLoLoLobbbcdsac";
-//		String b = "LoLoLo";
-//		a.toLowerCase().contains(b.toLowerCase());
-		System.out.println("Enter your name: ");
+		
+		System.out.println("Enter your name " + ((isCreated) ? this.name : " ") + ": ");
 		this.name = sc.nextLine();
-		System.out.println("Enter your birth year: ");
+		
+		System.out.println("Enter your birth year " + ((isCreated) ? this.yearOfBirth : " ") + ": ");
 		this.yearOfBirth = Integer.parseInt(sc.nextLine());
-		System.out.println("Enter your hometown: ");
+		
+		System.out.println("Enter your hometown " + ((isCreated) ? this.hometown : " ") + ": ");
 		this.hometown = sc.nextLine();
-		System.out.println("Enter your department: ");
+		
+		System.out.println("Enter your department " + ((isCreated) ? this.department : " ") + ": ");
 		this.department = sc.nextLine();
-		System.out.println("Enter your salary ratio: ");
+		
+		System.out.println("Enter your salary ratio " + ((isCreated) ? this.salaryRatio : " ") + ": ");
 		this.salaryRatio = Float.parseFloat(sc.nextLine());
-		System.out.println("Enter your periods in month: ");
+		
+		System.out.println("Enter your periods in month " + ((isCreated) ? this.periodsInMonth : " ") + ": ");
 		this.periodsInMonth = Integer.parseInt(sc.nextLine());
-		System.out.println("Enter your number of working years: ");
+		
+		System.out.println("Enter your number of working years " + ((isCreated) ? this.yearOfWork : " ") + ": ");
 		this.yearOfWork = Integer.parseInt(sc.nextLine());
+		
 		minimumWage = Define.DEFAULT_MINIMUM_WAGE;
-		System.out.println("Choose your qualification: \n" +
+		
+		System.out.println("Choose your qualification " + ((isCreated) ? this.qualification : " " ) + "\n" +
 						   "1. Bachelor. \n" +
 						   "2. Master. \n" +
 						   "3. Doctor.");
@@ -224,11 +231,19 @@ public class Lecturer extends Person implements Observer{
 			break;
 		}
 		}
+		
+		if (!isCreated) isCreated = true;
 	}
 
 	@Override
 	public void update(float minimumWage) {
 		this.minimumWage = minimumWage;
 		
+	}
+
+	@Override
+	public float getSalary() {
+		float salary = (salaryRatio * minimumWage) + allowance + (periodsInMonth * 45);
+		return salary;
 	}
 }

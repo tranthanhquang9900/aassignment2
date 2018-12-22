@@ -26,5 +26,7 @@ public class Define {
 	public static final int TYPE_OF_DEPUTY = 2;
 	public static final int TYPE_OF_EMPLOYEE = 3;
 	
+	public static float newMinimumWage = DEFAULT_MINIMUM_WAGE;
+	
 	public static ArrayList <Person> persons = new ArrayList <>();
 }

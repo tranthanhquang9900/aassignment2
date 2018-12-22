@@ -61,5 +61,7 @@ public abstract class Person {
 	public abstract String toString();
 	
 	public abstract void input();
+	
+	public abstract float getSalary();
 }
 

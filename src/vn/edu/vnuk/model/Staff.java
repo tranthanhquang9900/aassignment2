@@ -13,6 +13,7 @@ public class Staff extends Person implements Observer {
 	private int workDay;
 	private int yearOfWork;
 	private float minimumWage;
+	private boolean isCreated;
 	
 	public String getHometown() {
 		return hometown;
@@ -79,6 +80,7 @@ public class Staff extends Person implements Observer {
 	}
 
 	private Staff(StaffBuilder builder) {
+		this.isCreated = false;
 		this.id = builder.id;
 		this.yearOfBirth = builder.yearOfBirth;
 		this.type = builder.type;
@@ -183,34 +185,42 @@ public class Staff extends Person implements Observer {
 	public void input() {
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("Enter your name: ");
-		String name = sc.nextLine();
-		System.out.println("Enter your birth year: ");
-		int yearOfBirth = Integer.parseInt(sc.nextLine());
-		System.out.println("Enter your hometown: ");
-		String hometown = sc.nextLine();
-		System.out.println("Enter your department: ");
-		String department = sc.nextLine();
-		System.out.println("Enter your salary ratio: ");
-		float salaryRatio = Float.parseFloat(sc.nextLine());
-		System.out.println("Enter your number of working days: ");
-		int workDay = Integer.parseInt(sc.nextLine());
-		System.out.println("Enter your number of working years: ");
-		int yearOfWork = Integer.parseInt(sc.nextLine());
+		System.out.println("Enter your name " + ((isCreated) ? this.name : " ") + " ");
+		this.name = sc.nextLine();
+		
+		System.out.println("Enter your birth year " + ((isCreated) ? this.yearOfBirth : " ") + ": ");
+		this.yearOfBirth = Integer.parseInt(sc.nextLine());
+		
+		System.out.println("Enter your hometown " + ((isCreated) ? this.hometown : " ") + ": ");
+		this.hometown = sc.nextLine();
+		
+		System.out.println("Enter your department " + ((isCreated) ? this.department : " ") + ": ");
+		this.department = sc.nextLine();
+		
+		System.out.println("Enter your salary ratio " + ((isCreated) ? this.salaryRatio : " ") + ": ");
+		this.salaryRatio = Float.parseFloat(sc.nextLine());
+		
+		System.out.println("Enter your number of working days " + ((isCreated) ? this.workDay : " ") + ": ");
+		this.workDay = Integer.parseInt(sc.nextLine());
+		
+		System.out.println("Enter your number of working years " + ((isCreated) ? this.yearOfWork : " ") + ": ");
+		this.yearOfWork = Integer.parseInt(sc.nextLine());
+		
 		minimumWage = Define.DEFAULT_MINIMUM_WAGE;
-		System.out.println("Choose your position: \n" +
+		
+		System.out.println("Choose your position " + ((isCreated) ? this.position : " ") + "\n" +
 				   		   "1. Chief of department. \n" +
 				           "2. Deputy of department. \n" +
 				   	       "3. Employee.");
 		int selection = sc.nextInt();
 		switch (selection) {
 		case Define.TYPE_OF_CHIEF: {
-			position = "Chief of department";
+			position = "Chief";
 			allowance = Define.ALLOWANCE_OF_CHIEF;
 			break;
 		}
 		case Define.TYPE_OF_DEPUTY: {
-			position = "Deputy of department";
+			position = "Deputy";
 			allowance = Define.ALLOWANCE_OF_DEPUTY;
 			break;
 		}
@@ -220,11 +230,19 @@ public class Staff extends Person implements Observer {
 			break;
 		}
 		}
+		
+		if (!isCreated) isCreated = true;
 	}
 
 	@Override
 	public void update(float minimumWage) {
 		this.minimumWage = minimumWage;
+	}
+
+	@Override
+	public float getSalary() {
+		float salary = (salaryRatio * minimumWage) + allowance + (workDay * 30);
+		return salary;
 	}
 
 	
