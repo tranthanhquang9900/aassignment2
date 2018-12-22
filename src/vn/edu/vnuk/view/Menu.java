@@ -1,5 +1,7 @@
 package vn.edu.vnuk.view;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -162,6 +164,97 @@ public class Menu {
 						break;
 					}
 					}
+					break;
+				}
+				
+				case 4: {
+					Scanner sc = null;
+					try {
+						sc = new Scanner(new File("staff.txt"));
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} 
+					int numberOfStaffs = Integer.parseInt(sc.nextLine());
+					int type;
+					float salaryRatio;
+					int yearOfBirth, yearOfWork, workDay, periodsInMonth;
+					String name, hometown, department, position, qualification;
+					
+					for (int index = 0; index < numberOfStaffs; index++) {
+						Define.latestId++;
+						
+						type = Integer.parseInt(sc.nextLine());
+						yearOfBirth = Integer.parseInt(sc.nextLine());
+						name = sc.nextLine();
+						hometown = sc.nextLine();
+						department = sc.nextLine();
+						yearOfWork = Integer.parseInt(sc.nextLine());
+						salaryRatio = Float.parseFloat(sc.nextLine());					
+						
+						if (type == Define.TYPE_OF_LECTURER) {
+							qualification = sc.nextLine();
+							periodsInMonth = Integer.parseInt(sc.nextLine());
+							
+							Lecturer newLecturer = new Lecturer.LecturerBuilder(Define.latestId, Define.TYPE_OF_LECTURER)
+														.setYearOfBirth(yearOfBirth)
+														.setName(name)
+														.setHometown(hometown)
+														.setDepartment(department)
+														.setYearOfWork(yearOfWork)
+														.setSalaryRatio(salaryRatio)
+														.setQualification(qualification)
+														.setPeriodsInMonth(periodsInMonth)
+														.build();
+							Define.persons.add(newLecturer);
+						} else {
+							position = sc.nextLine();
+							workDay = Integer.parseInt(sc.nextLine());
+							
+							Staff newStaff = new Staff.StaffBuilder(Define.latestId, Define.TYPE_OF_STAFF)
+														.setYearOfBirth(yearOfBirth)
+														.setName(name)
+														.setHometown(hometown)
+														.setDepartment(department)
+														.setYearOfWork(yearOfWork)
+														.setSalaryRatio(salaryRatio)
+														.setPosition(position)
+														.setWorkDay(workDay)
+														.build();
+							Define.persons.add(newStaff);							
+						}
+					}
+					
+					break;
+				}
+				
+				case 5: {
+					Scanner sc = null;
+					try {
+						sc = new Scanner(new File("labor.txt"));
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
+					int numberOfCasualWorkers = Integer.parseInt(sc.nextLine());
+					int yearOfBirth, workDay;
+					float earningPerDay;
+					String name;
+					
+					for (int index = 0; index < numberOfCasualWorkers; index++) {
+						name = sc.nextLine();
+						yearOfBirth = Integer.parseInt(sc.nextLine());
+						workDay = Integer.parseInt(sc.nextLine());
+						earningPerDay = Float.parseFloat(sc.nextLine());
+						
+						CasualWorker newCasualWorker = new CasualWorker.CasualWorkerBuilder(Define.latestId, Define.TYPE_OF_CASUAL_WORKER)
+								.setName(name)
+								.setWorkDay(workDay)
+								.setYearOfBirth(yearOfBirth)
+								.setEarningPerDay(earningPerDay)
+								.build();
+						
+						Define.persons.add(newCasualWorker);
+					}
+		
 					break;
 				}
 				
@@ -338,10 +431,17 @@ public class Menu {
 		
 		for (int index = 0; index < indexs.length; index++) {
 			indexTemp = Integer.parseInt(indexs[index]);
-			subject.attach((Observer)Define.persons.get(indexTemp));
+			
+			if ((indexTemp >= 0) && (indexTemp < Define.persons.size())) {
+				
+				if ((Define.persons.get(indexTemp).getType() == Define.TYPE_OF_LECTURER) || (Define.persons.get(indexTemp).getType() == Define.TYPE_OF_STAFF )) {
+					
+					subject.attach((Observer)Define.persons.get(indexTemp));
+					subject.notifyChange(Define.newMinimumWage);
+				} else System.out.println("Cannot edit!");
+				
+			} else System.out.println("Cannot found!");
 		}
-		
-		subject.notifyChange(Define.newMinimumWage);
 	}
 	
 	public static void menuNine() {
@@ -402,7 +502,7 @@ public class Menu {
 			case Define.TYPE_OF_CASUAL_WORKER: {
 				System.out.format("%-10s %-10s %-15s %-15s %-15s %-15s %-15s %n"
 						 , "null"
-						 , "Casual Worker"
+						 , "CWorker"
 						 , "null"
 						 , "null"
 						 , "null"

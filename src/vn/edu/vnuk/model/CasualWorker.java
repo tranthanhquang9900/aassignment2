@@ -52,7 +52,7 @@ public class CasualWorker extends Person {
 			return this;
 		}
 		
-		public CasualWorkerBuilder setEarningPerDay(int earningPerDay) {
+		public CasualWorkerBuilder setEarningPerDay(float earningPerDay) {
 			this.earningPerDay = earningPerDay;
 			return this;
 		}

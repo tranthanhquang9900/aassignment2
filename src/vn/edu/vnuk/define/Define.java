@@ -26,6 +26,15 @@ public class Define {
 	public static final int TYPE_OF_DEPUTY = 2;
 	public static final int TYPE_OF_EMPLOYEE = 3;
 	
+	public static final String QUALIFICATION_OF_BACHELOR = "Bachelor";
+	public static final String QUALIFICATION_OF_MASTER = "MASTER";
+	public static final String QUALIFICATION_OF_DOCTOR = "DOCTOR";
+	
+	public static final String POSITION_OF_CHIEF = "Chief";
+	public static final String POSITION_OF_DEPUTY = "Deputy";
+	public static final String POSITION_OF_EMPLOYEE = "Employee";
+
+	
 	public static float newMinimumWage = DEFAULT_MINIMUM_WAGE;
 	
 	public static ArrayList <Person> persons = new ArrayList <>();

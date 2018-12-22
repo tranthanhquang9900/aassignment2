@@ -135,6 +135,11 @@ public class Staff extends Person implements Observer {
 			this.department = department;
 			return this;
 		}
+		
+		public StaffBuilder setPosition(String position) {
+			this.position = position;
+			return this;
+		}
 	
 		public StaffBuilder setQualification(String position) {
 			this.position = position;
@@ -215,18 +220,18 @@ public class Staff extends Person implements Observer {
 		int selection = sc.nextInt();
 		switch (selection) {
 		case Define.TYPE_OF_CHIEF: {
-			position = "Chief";
-			allowance = Define.ALLOWANCE_OF_CHIEF;
+			this.position = Define.POSITION_OF_CHIEF;
+			this.allowance = Define.ALLOWANCE_OF_CHIEF;
 			break;
 		}
 		case Define.TYPE_OF_DEPUTY: {
-			position = "Deputy";
-			allowance = Define.ALLOWANCE_OF_DEPUTY;
+			this.position = Define.POSITION_OF_DEPUTY;
+			this.allowance = Define.ALLOWANCE_OF_DEPUTY;
 			break;
 		}
 		case Define.TYPE_OF_EMPLOYEE: {
-			position = "Employee";
-			allowance = Define.ALLOWANCE_OF_EMPLOYEE;
+			this.position = Define.POSITION_OF_EMPLOYEE;
+			this.allowance = Define.ALLOWANCE_OF_EMPLOYEE;
 			break;
 		}
 		}

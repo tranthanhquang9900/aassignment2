@@ -216,18 +216,18 @@ public class Lecturer extends Person implements Observer {
 		int selection = Integer.parseInt(sc.nextLine());
 		switch (selection) {
 		case Define.TYPE_OF_BACHELOR: {
-			qualification = "Bachelor";
-			allowance = Define.ALLOWANCE_OF_BACHELOR;
+			this.qualification = Define.QUALIFICATION_OF_BACHELOR;
+			this.allowance = Define.ALLOWANCE_OF_BACHELOR;
 			break;
 		}
 		case Define.TYPE_OF_MASTER: {
-			qualification = "Master";
-			allowance = Define.ALLOWANCE_OF_MASTER;
+			this.qualification = Define.QUALIFICATION_OF_MASTER;
+			this.allowance = Define.ALLOWANCE_OF_MASTER;
 			break;
 		}
 		case Define.TYPE_OF_DOCTOR: {
-			qualification = "Doctor";
-			allowance = Define.ALLOWANCE_OF_DOCTOR;
+			this.qualification = Define.QUALIFICATION_OF_DOCTOR;
+			this.allowance = Define.ALLOWANCE_OF_DOCTOR;
 			break;
 		}
 		}
