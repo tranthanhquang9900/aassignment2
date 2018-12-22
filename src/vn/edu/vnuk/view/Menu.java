@@ -3,6 +3,8 @@ package vn.edu.vnuk.view;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 import vn.edu.vnuk.controller.Observer;
@@ -176,7 +178,7 @@ public class Menu {
 					} 
 					int numberOfStaffs = Integer.parseInt(sc.nextLine());
 					int type;
-					float salaryRatio;
+					float salaryRatio, minimumWage;
 					int yearOfBirth, yearOfWork, workDay, periodsInMonth;
 					String name, hometown, department, position, qualification;
 					
@@ -189,7 +191,8 @@ public class Menu {
 						hometown = sc.nextLine();
 						department = sc.nextLine();
 						yearOfWork = Integer.parseInt(sc.nextLine());
-						salaryRatio = Float.parseFloat(sc.nextLine());					
+						salaryRatio = Float.parseFloat(sc.nextLine());
+						minimumWage = Float.parseFloat(sc.nextLine());
 						
 						if (type == Define.TYPE_OF_LECTURER) {
 							qualification = sc.nextLine();
@@ -204,7 +207,9 @@ public class Menu {
 														.setSalaryRatio(salaryRatio)
 														.setQualification(qualification)
 														.setPeriodsInMonth(periodsInMonth)
+														.setMinimumWage(minimumWage)
 														.build();
+							
 							Define.persons.add(newLecturer);
 						} else {
 							position = sc.nextLine();
@@ -219,7 +224,9 @@ public class Menu {
 														.setSalaryRatio(salaryRatio)
 														.setPosition(position)
 														.setWorkDay(workDay)
+														.setMinimumWage(minimumWage)
 														.build();
+							
 							Define.persons.add(newStaff);							
 						}
 					}
@@ -236,7 +243,7 @@ public class Menu {
 					}
 					int numberOfCasualWorkers = Integer.parseInt(sc.nextLine());
 					int yearOfBirth, workDay;
-					float earningPerDay;
+					float earningPerDay, minimumWage;
 					String name;
 					
 					for (int index = 0; index < numberOfCasualWorkers; index++) {
@@ -319,31 +326,42 @@ public class Menu {
 				}
 				
 				case 2: {
-					ArrayList<Person> persons = new ArrayList<Person>();
-					persons = Define.persons;
+					ArrayList<Person> tempPersons = (ArrayList<Person>) Define.persons.clone();
 					
 					for (int i = 0; i < Define.persons.size() - 1; i++) {
 						for (int j = i + 1; j < Define.persons.size(); j++) {
-							if (persons.get(i).getSalary() > persons.get(j).getSalary()) {
-								Person temp = persons.get(j);
-								persons.set(j, persons.get(i));
-								persons.set(i, temp);
+							if (tempPersons.get(i).getSalary() > tempPersons.get(j).getSalary()) {
+								Person temp = tempPersons.get(j);
+								tempPersons.set(j, tempPersons.get(i));
+								tempPersons.set(i, temp);
 							}
 						}
 					}
-					showListPerson(persons);
+					showListPerson(tempPersons);
 					break;
 				}
 				
 				case 3: {
+					ArrayList<Person> tempPersons = (ArrayList<Person>) Define.persons.clone();
 					
+					Collections.sort(tempPersons, new Comparator<Person>() {
+						
+						@Override
+						public int compare(Person t1, Person t2) {
+							
+							String s1 = t1.getName();
+							String s2 = t2.getName();
+							return s1.compareTo(s2);
+						}
+					});
+					showListPerson(tempPersons);
+					break;
 				}
 				
 				case 4: {
 					Scanner sc = new Scanner(System.in);
 					System.out.println("Enter a name: ");
 					String nameSearch = sc.nextLine();
-					sc.close();
 					
 					ArrayList<Person> persons = new ArrayList<Person>();
 					Person person;
@@ -362,6 +380,7 @@ public class Menu {
 						System.out.println("Cannot found!");
 					} else {
 						showListPerson(persons);
+						persons.clear();
 					}
 					break;
 				}
