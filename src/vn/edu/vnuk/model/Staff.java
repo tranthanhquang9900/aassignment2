@@ -15,6 +15,9 @@ public class Staff extends Person implements Observer {
 	private float minimumWage;
 	private boolean isCreated;
 	
+	public Staff() {
+		
+	}
 	public String getHometown() {
 		return hometown;
 	}

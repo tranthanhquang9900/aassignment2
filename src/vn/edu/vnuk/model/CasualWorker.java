@@ -33,6 +33,9 @@ public class CasualWorker extends Person {
 		this.earningPerDay = builder.earningPerDay;
 	}
 	
+	public CasualWorker() {
+	}
+
 	//Builder Class
 	public static class CasualWorkerBuilder {
 		private int workDay;
